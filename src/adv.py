@@ -2,6 +2,12 @@ from room import Room
 from player import Player
 import textwrap
 
+# Functions
+
+def whereAmI(player):
+    print(textwrap.fill(f"You are at the {player.current_room.name} \n"))
+    print(textwrap.fill(f"{player.current_room.description} \n"))
+
 # Declare all the rooms
 
 room = {
@@ -40,16 +46,34 @@ room['treasure'].s_to = room['narrow']
 #
 player = Player("Noob", room['outside'])
 print("Welcome to the Adventure Game!")
-print(f"Your name is {player.name}.")
+print(f"Your name is {player.name}.\n")
+whereAmI(player)
 
 
 # Make a new player object that is currently in the 'outside' room.
 user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] Quit\n ")
 
+
+
 while not user == "q":
+    
     if user == "n":
-        print("testing")
-    print("Please choose to continue...")
+        print("You move towards the north.\n")
+
+        if player.current_room == room["outside"]:
+            player.current_room = room["foyer"]
+            
+        
+        elif player.current_room == room["foyer"]:
+            player.current_room = room["overlook"]
+        
+        whereAmI(player)
+            
+    else:
+        print("Invalid input.")
+
+    
+    print("Please choose to continue...\n")
     user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] Quit\n ")
 # Write a loop that:
 #
