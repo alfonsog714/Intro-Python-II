@@ -11,11 +11,11 @@ class Room:
         return f"Room: {self.name}, {self.description}"
 
     def __repr__(self):
-        return f"Room({repr(self.name)}, {repr(self.num)})"
+        return f"Room({repr(self.name)}, {repr(self.description)})"
 
 
-miniRoom = Room("House", "It's tiny")
+# miniRoom = Room("House", "It's tiny")
 
-print(miniRoom)
-print("")
-print(repr(miniRoom))
+# print(miniRoom)
+# print("")
+# print(repr(miniRoom))
