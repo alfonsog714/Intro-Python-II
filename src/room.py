@@ -1,6 +1,5 @@
 # Implement a class to hold room information. This should have name and
 # description attributes.
-# return f'Dept({repr(self.name)}, {repr(self.num)})'
 
 class Room:
     def __init__(self, name, description):
@@ -14,8 +13,8 @@ class Room:
         return f"Room({repr(self.name)}, {repr(self.description)})"
 
 
-# miniRoom = Room("House", "It's tiny")
-
+# miniRoom = Room("test", "It's tiny")
+# miniRoom.n_to = "foyer"
 # print(miniRoom)
 # print("")
 # print(repr(miniRoom))

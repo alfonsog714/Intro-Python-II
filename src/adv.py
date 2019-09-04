@@ -1,4 +1,6 @@
-from src.room import Room
+from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -36,9 +38,19 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
+player = Player("Noob", room['outside'])
+print("Welcome to the Adventure Game!")
+print(f"Your name is {player.name}.")
+
 
 # Make a new player object that is currently in the 'outside' room.
+user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] Quit\n ")
 
+while not user == "q":
+    if user == "n":
+        print("testing")
+    print("Please choose to continue...")
+    user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] Quit\n ")
 # Write a loop that:
 #
 # * Prints the current room name
