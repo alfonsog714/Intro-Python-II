@@ -5,8 +5,12 @@ import textwrap
 # Functions
 
 def whereAmI(player):
-    print(textwrap.fill(f"You are at the {player.current_room.name} \n"))
+    print(textwrap.fill(f"You are at the {player.current_room.name}. \n"))
     print(textwrap.fill(f"{player.current_room.description} \n"))
+
+def badPath(player):
+    print(f"You're not able to move in that direction from the {player.current_room.name}.\n")
+
 
 # Declare all the rooms
 
@@ -58,22 +62,95 @@ user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] 
 while not user == "q":
     
     if user == "n":
+        print("")
+        print("")
         print("You move towards the north.\n")
 
         if player.current_room == room["outside"]:
-            player.current_room = room["foyer"]
+            player.current_room = room["outside"].n_to
             
         
         elif player.current_room == room["foyer"]:
-            player.current_room = room["overlook"]
+            player.current_room = room["foyer"].n_to
         
-        whereAmI(player)
+        elif player.current_room == room["overlook"]:
+            badPath(player)
+
+        elif player.current_room == room["narrow"]:
+            player.current_room = room["narrow"].n_to
+
+        elif player.current_room == room["treasure"]:
+            badPath(player)
+       
+    elif user == "e":
+        print("")
+        print("")
+        print("You move towards the east. \n")
+
+        if player.current_room == room["outside"]:
+            badPath(player)
             
+        
+        elif player.current_room == room["foyer"]:
+            player.current_room = room["foyer"].e_to
+        
+        elif player.current_room == room["overlook"]:
+            badPath(player)
+
+        elif player.current_room == room["narrow"]:
+            badPath(player)
+
+        elif player.current_room == room["treasure"]:
+            badPath(player)
+
+    elif user == "w":
+        print("")
+        print("")
+        print("You move towards the west. \n")
+
+        if player.current_room == room["outside"]:
+            badPath(player)
+            
+        elif player.current_room == room["foyer"]:
+            badPath(player)
+        
+        elif player.current_room == room["overlook"]:
+            badPath(player)
+
+        elif player.current_room == room["narrow"]:
+            player.current_room = room["narrow"].w_to
+
+        elif player.current_room == room["treasure"]:
+            badPath(player)
+        
+    elif user == "s":
+        print("")
+        print("")
+        print("You move towards the south. \n")
+
+        if player.current_room == room["outside"]:
+            badPath(player)
+            
+        elif player.current_room == room["foyer"]:
+            player.current_room = room["foyer"].s_to
+        
+        elif player.current_room == room["overlook"]:
+            player.current_room = room["overlook"].s_to
+
+        elif player.current_room == room["narrow"]:
+            badPath(player)
+
+        elif player.current_room == room["treasure"]:
+            player.current_room = room["treasure"].s_to
+        
     else:
+        print("")
+        print("")
         print("Invalid input.")
 
-    
-    print("Please choose to continue...\n")
+
+    whereAmI(player)
+    print("\nPlease choose to continue...\n")
     user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] Quit\n ")
 # Write a loop that:
 #
