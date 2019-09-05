@@ -1,36 +1,58 @@
 from room import Room
 from player import Player
-import textwrap
+from item import Item
 
 # Functions
 
 def whereAmI(player):
-    print(textwrap.fill(f"You are at the {player.current_room.name}. \n"))
-    print(textwrap.fill(f"{player.current_room.description} \n"))
+    print(f"You are at the {player.current_room.name}.\n")
+    print(f"{player.current_room.description} \n")
 
 def badPath(player):
     print(f"You're not able to move in that direction from the {player.current_room.name}.\n")
+
+def checkIfItems(room):
+    if len(room.items) > 0:
+        print("The room has the following items:\n")
+        for item in room.items:
+            print(f"{item.name}\n{item.description}\n")
+        
+        command = input("[Take 'item_name]   [Drop 'item_name']   [Leave]\n").lower()
+        commands = command.split(" ")
+        if len(commands) == 1 and commands[0] == "leave":
+            print("You decided to leave the items alone.\n")
+        
+        elif len(commands) == 2:
+            pass
+        
+
+
+# Items
+
+sword = Item('Sword', 'A sword with a dull blade, looks like it could barely cut skin.')
+rock = Item("Rock", "A simple rock that's the size of the palm of your hand.")
+
 
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", [sword, rock]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", []),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", []),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", []),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", []),
 }
 
 
@@ -48,7 +70,7 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
-player = Player("Noob", room['outside'])
+player = Player("Noob", room['outside'], [])
 print("Welcome to the Adventure Game!")
 print(f"Your name is {player.name}.\n")
 whereAmI(player)
@@ -148,8 +170,8 @@ while not user == "q":
         print("")
         print("Invalid input.")
 
-
     whereAmI(player)
+    checkIfItems(player.current_room)
     print("\nPlease choose to continue...\n")
     user = input("[n] Move north  [e] Move east  [s] Move south  [w] Move west  [q] Quit\n ")
 # Write a loop that:
